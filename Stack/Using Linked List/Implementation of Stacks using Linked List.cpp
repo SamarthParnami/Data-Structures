@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include<Windows.h>
 #include"List.h"
+#include"../../Search/LinearSearch.hpp"
 using namespace std;
 
 string toLower(string &a)			//accessory function to allow easy implementation of console commands by converting uppercase to lowercase
@@ -73,6 +74,8 @@ int main()
     Stack<int> boxes;
     cout<<"Editor--Samarth Parnami"<<endl;
     Sleep(1000);
+    vector<int> v;
+    LinearSearch<int>(v,0);
 
     return 0;
 }
