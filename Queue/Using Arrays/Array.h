@@ -1,6 +1,5 @@
-#include<bits/stdc++.h>
-using namespace std;
-
+#ifndef Array_h
+#define Array_h
 template<typename Variable>
 class Array
 {
@@ -10,9 +9,9 @@ public:
 	int lastIndex=-1;	//indexof the last element int he array
 	
 
-	Array()
+	Array(int size=20)
 	{
-		this->size=20;
+		this->size=size;
 		serial=new Variable [this->size];
 	}
 	Array(Variable arr[],int size)
@@ -29,18 +28,6 @@ public:
 	{
 		return lastIndex==size-1?true:false;
 	}
-
-//to print each element of the array
-
-	void traverse()
-	{
-		for (int i = 0; i <=lastIndex; ++i)
-		{
-			cout<<serial[i]<<" ";
-		}
-		cout<<"\n";
-	}
-
 //insertion at end
 	void push_back(Variable a[],int size) //for insertion of  array at end
 											//also takes care of size and lastIndex elemnt of class 
@@ -143,7 +130,6 @@ public:
 			}
 		}
 	}
-
 	void deletingElement(Variable a)
 	{
 		int i;
@@ -162,82 +148,4 @@ public:
 	}
 };
 
-string toLower(string &a)			//accesory function to allow easy implementation of console commands by converting uppercase to lowercase
-{
-	for(unsigned i=0;i<a.size();i++)
-	{
-		if(a[i]>=65&&a[i]<=90)
-		{
-			a[i]=a[i]+('A'-'a');
-		}
-	}
-	return a;
-	
-}
-
-int main()
-{
-	int a[]={1,2,3,4,5,6,7,8,9};
-	Array<int> age(a,9);
-	string command;
-	cout<<"commannds are stored in command list"<<endl;
-	cin>>command;
-		cout<<command;
-		command=toLower(command);
-		if(command=="list"||command=="help")
-		{
-			cout<<"traverse -prints each element of the array."<<endl;
-			cout<<"push_back -to append array of element or one element at end of the array"<<endl;
-			cout<<"insertInMiddle -insert element at random index of the array"<<endl;
-			cout<<"deleteElement -delete a element of the array by value"<<endl;
-		}
-		else if(command=="traverse")
-		{
-			cout<<"Elements of the array:";
-			cout<<"\n";
-			age.traverse();
-		}
-		else if(command=="push_back")
-		{
-			int size=0;
-			cout<<"No of elements: ";
-			cin>>size;
-			int y[size];
-			cout<<"Enter element(s):";
-			int temp;
-			while(cin>>temp)
-			{
-				y[size++]=temp;
-			}
-			 age.push_back(y,size);
-		}
-		else if(command=="insertInMiddle")
-		{
-			int size=0;
-			cout<<"No of elements: ";
-			cin>>size;
-			int y[size];
-			cout<<"Enter element(s):";
-			int temp;
-			while(cin>>temp)
-			{
-				y[size++]=temp;
-			}
-			int index;
-			cout<<"At index:";
-			cin>>index;
-			age.insertMiddle(y,size,index);
-		}
-		else if(command=="delete")
-		{
-			int value;
-			cout<<"Delete value:";
-			cin>>value;
-			age.deletingElement(value);
-		}
-
-	
-	cout<<"--Editor-Samarth Parnami--"<<endl;
-	cin>>command;
-	return 0;
-}
+#endif
