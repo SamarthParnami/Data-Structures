@@ -221,6 +221,37 @@ public:
 
         return ans;
     }
+    vector<variable> DFS(variable from)
+    {
+        graphNode<variable>* start=isNodePresent(from);
+        for(int i=0;i<nodes.size();i++)
+        {
+            if(nodes[i]!=nullptr)
+            {
+                nodes[i]->setVisited(false);
+            }
+        }
+        vector<variable> ans=dfsTraverse(start);
+        return ans;
+    }
+    vector<variable> dfsTraverse(graphNode<variable>* start)
+    {
+        vector<variable> ans;
+
+        ans.push_back(start->val);
+        start->setVisited(true);
+        List<pairOf<graphNode<variable>*,double>*>* neighbour=start->adjacent;
+        while(neighbour!=nullptr)
+        {
+            if(!neighbour->val->first->visited)
+            {
+                vector<variable> temp=dfsTraverse(neighbour->val->first);
+                ans.insert(ans.end(),temp.begin(),temp.end());
+            }
+            neighbour=neighbour->next;
+        }
+        return ans;
+    }
 
 };
 void printVector(vector<int> a)
@@ -239,6 +270,7 @@ int main()
     taste.addUndirectedEdge(44,55,1);
     taste.addUndirectedEdge(44,9,4);
     printVector(taste.BFS(-1));
+    printVector(taste.DFS(-1));
 
 
 
