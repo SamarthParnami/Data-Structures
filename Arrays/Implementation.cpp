@@ -79,8 +79,9 @@ public:
     {
         variable val=element[0];
         shiftDownFrom(1);
+        return val;
     }
-    variable pop(variable val)
+    void pop(variable val)
     {
         for(int i=0;i<=index;i++)
         {
