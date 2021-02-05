@@ -1,186 +1,153 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-template<typename Variable>
-class Array
-{
-	int size=0;			//capacity of the array
+
+template<typename variable>
+class Array{
+    int length;
+    int index;
 public:
-	Variable* serial;     //pointer to very first element of the array
-	int lastIndex=-1;	//indexof the last element int he array
-	
+    variable* element;
 
-	Array()
-	{
-		this->size=20;
-		serial=new Variable [this->size];
-	}
-	Array(Variable arr[],int size)
-	{
-		this->size=size+20;
-		serial=new int [this->size];
-		for(int i=0;i<size;i++)
-		{
-			serial[++lastIndex]=arr[i];
-		}
-	}
-	
-	bool isFull()
-	{
-		return lastIndex==size-1?true:false;
-	}
+    Array(int length)
+    {
+        this->length=length+1;
+        index=-1;
+        element= new variable[length];
+    }
+    bool isFull()
+    {
+        return index==length-1?true:false;
+    }
+    bool isEmpty()
+    {
+        return index==-1?true:false;
+    }
+    void pushBack(variable val)
+    {
+        if(isFull())
+        {
+            cout<<"Error!! Array is already full."<<endl;
+        }
+        else
+        {
+            element[++index]=val;
+        }
+    }
+    void pushFront(variable val)
+    {
+        if(shiftUpFrom(0))
+        {
+            element[0]=val;
+        }
+        else
+        {
+            cout<<"Error!! Array is already full."<<endl;
+        }
+    }
+    void pushAfter(variable after,variable val)
+    {
+        for(int i=0;i<=index;i++)
+        {
+            if(element[i]==after)
+            {
+                if(shiftUpFrom(i+1))
+                {
+                    element[i+1]=val;
+                    break;
+                }
+                else
+                {
+                    cout<<"Error!! Array is already full."<<endl;
+                }
+            }
+        }
+    }
+    variable popBack()
+    {
+        if(!isEmpty())
+        {
+            return element[index--];
+        }
+        else
+        {
+            cout<<"Array is empty."<<endl;
+        }
 
-//to print each element of the array
-
-	void traverse()
-	{
-		for (int i = 0; i <=lastIndex; ++i)
-		{
-			cout<<serial[i]<<" ";
-		}
-		cout<<"\n";
-	}
-
-//insertion at end
-	void push_back(Variable a[],int size) //for insertion of  array at end
-											//also takes care of size and lastIndex elemnt of class 
-	{
-		if(lastIndex-1+size==this->size)				//if size of incoming array will not fit 
-														//inside preset array.Present array is redeclared
-														//with new size to accomodate the incoming elements.
-		{
-			Variable* temp=serial;
-			serial=new Variable[this->size+size+20];
-			lastIndex=-1;
-			for(int i=0;i<this->size;i++)
-			{
-				serial[++lastIndex]=temp[i];
-			}
-			for(int i=0;i<size;i++)
-			{
-				serial[++lastIndex]=a[i];
-			}
-			this->size=this->size+size+20;
-
-		}
-		else
-		{
-			for(int i=0;i<size;i++)
-				{
-					serial[++lastIndex]=a[i];
-				}
-		}
-	}
-
-
-	void push_back(Variable a)		//for insertion of single element at end
-										//also takes care of size and lastIndex elemnt of class 
-	{
-		if(lastIndex-1+1==this->size)					//if size of incoming element will not fit 
-														//inside preset array.Present array is redeclared
-														//with new size to accomodate the incoming element.
-
-		{
-			Variable* temp=serial;
-			serial=new Variable[this->size+20];
-			lastIndex=-1;
-			for(int i=0;i<this->size;i++)
-			{
-				serial[++lastIndex]=temp[i];
-			}
-			serial[++lastIndex]=a;
-			this->size=this->size+20;
-
-		}
-		else
-		{
-			serial[++lastIndex]=a;
-		}
-	}
-
-
-//insertion in middle
-	void insertMiddle(Variable a[],int size,int atIndex)			//for insertion of  array at end
-																	//also takes care of size and lastIndex element of class 
-	{
-		if(lastIndex-1+size>this->size)					//if size of incoming array will not fit 
-														//inside preset array.Present array is redeclared
-														//with new size to accomodate the incoming elements.
-		{
-			Variable* temp=serial;
-			serial=new Variable[size+this->size+20];
-			lastIndex=-1;
-			for(int i=0;i<atIndex;i++)
-			{
-				serial[++lastIndex]=temp[i];
-			}
-			for(int i=atIndex;i<atIndex+size;i++)
-			{
-				serial[++lastIndex]=a[i-atIndex];
-			}
-			for(int i=atIndex;i<this->size;i++)
-			{
-				serial[++lastIndex]=temp[i];
-			}
-			size=this->size+size+20;
-		}
-		else
-		{
-			Variable temp[lastIndex-atIndex];
-			int tempSize=lastIndex-atIndex;
-			for(int i=atIndex;i<lastIndex;i++)
-			{
-				temp[i-atIndex]=serial[i];
-			}
-			lastIndex=lastIndex-size;
-			for(int i=0;i<size;i++)
-			{
-				serial[++lastIndex]=a[i];
-			}
-			for(int i=0;i<tempSize;i++)
-			{
-				serial[++lastIndex]=temp[i];
-			}
-		}
-	}
-
-	void deletingElement(Variable a)
-	{
-		int i;
-		for(i=0;i<lastIndex;i++)
-		{
-			if(serial[i]==a)
-			{
-				break;
-			}
-		}
-		for(int j=i+1;i<lastIndex;i++)
-		{
-			serial[j]=serial[j-1];
-		}
-		lastIndex--;
-	}
+    }
+    variable popFront()
+    {
+        variable val=element[0];
+        shiftDownFrom(1);
+    }
+    variable pop(variable val)
+    {
+        for(int i=0;i<=index;i++)
+        {
+            if(element[i]==val)
+            {
+                if(i<index)
+                {
+                    shiftDownFrom(i+1);
+                }
+                else if(i==index)
+                {
+                    index--;
+                }
+            }
+        }
+    }
+    bool shiftUpFrom(int from,int by=1)
+    {
+        if(index+by<length-1)
+        {
+            for(int i=index;i>=from;i--)
+            {
+                element[i+by]=element[i];
+            }
+            index+=by;
+            return true;
+        }
+        return false;
+    }
+    void shiftDownFrom(int from,int by=1)
+    {
+        for(int i=from;i<=index;i++)
+        {
+            element[i-by]=element[i];
+        }
+        index-=by;
+    }
+    void print()
+    {
+        for(int i=0;i<=index;i++)
+        {
+            cout<<element[i]<<" ";
+        }
+        cout<<endl;
+    }
 };
-
-string toLower(string &a)			//accesory function to allow easy implementation of console commands by converting uppercase to lowercase
-{
-	for(unsigned i=0;i<a.size();i++)
-	{
-		if(a[i]>=65&&a[i]<=90)
-		{
-			a[i]=a[i]+('A'-'a');
-		}
-	}
-	return a;
-	
-}
 
 int main()
 {
-	int a[]={1,2,3,4,5,6,7,8,9};
-	Array<int> age(a,9);
-	string command;
-	
+
+	Array<int> age(5);
+    age.pushBack(5);
+    age.pushFront(2);
+    age.pushAfter(2,48);
+    age.pushBack(99);
+    age.pushAfter(48,7);
+    cout<<"Array: ";
+    age.print();
+    age.popFront();
+    cout<<"Array after removal from front: ";
+    age.print();
+    age.pop(48);
+    cout<<"Array after removal of 48 from middle: ";
+    age.print();
+    age.popBack();
+    cout<<"Array after removal from back: ";
+    age.print();
 	cout<<"--Editor-Samarth Parnami--"<<endl;
 	return 0;
 }
