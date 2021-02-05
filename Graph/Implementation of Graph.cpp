@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+#include"List.h"
 using namespace std;
 
 template<typename a,typename b>
@@ -13,60 +13,7 @@ public:
         this->second=second;
     }
 };
-template<typename variable>
-class List{
-public:
-    variable val;
-    List* next=nullptr;
 
-    List(variable val,List* next=nullptr)
-    {
-        this->val=val;
-        this->next=next;
-    }
-    void pushBack(variable val)
-    {
-        List* start=this;
-        while(start->next!=nullptr)
-        {
-            start=start->next;
-        }
-        start->next=new List<variable>(val);
-    }
-    List* popFront()
-    {
-        List* nex=this->next;
-        delete this;
-        return nex;
-    }
-    void pop()
-    {
-
-        List* start=this;
-        while(start->next->next!=nullptr)
-        {
-            start=start->next;
-        }
-        delete start->next;
-        start->next=nullptr;
-    }
-    List* invertList()
-    {
-        List* head=this;
-        List* prev=nullptr;
-        while(head->next!=nullptr)
-        {
-            List* next=head->next;
-            head->next=prev;
-            prev=head;
-            head=next;
-        }
-        head->next=prev;
-        return head;
-    }
-
-
-};
 template<typename variable>
 class graphNode{
 public:
@@ -266,11 +213,15 @@ int main()
 {
     Graph <int> taste(5);
     taste.addUndirectedEdge(-1,44,1);
-    taste.addUndirectedEdge(-1,9,15);
+    taste.addUndirectedEdge(-1,9,1);
     taste.addUndirectedEdge(44,55,1);
-    taste.addUndirectedEdge(44,9,4);
+    taste.addUndirectedEdge(44,9,1);
+    taste.addUndirectedEdge(44,8,1);
+    taste.addUndirectedEdge(8,9,1);
+    cout<<"Breath First Search starting from -1: ";
     printVector(taste.BFS(-1));
-    printVector(taste.DFS(-1));
+    cout<<"Depth First Search starting from 44:  ";
+    printVector(taste.DFS(44));
 
 
 

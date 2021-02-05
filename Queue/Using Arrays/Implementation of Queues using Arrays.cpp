@@ -2,18 +2,7 @@
 #include "Array.h"
 using namespace std;
 
-string toLower(string &a)			//accessory function to allow easy implementation of console commands by converting uppercase to lowercase
-{
-	for(unsigned i=0;i<a.size();i++)
-	{
-		if(a[i]>=65&&a[i]<=90)
-		{
-			a[i]=a[i]+('A'-'a');
-		}
-	}
-	return a;
 
-}
 template<typename variable>
 class Queue{
 Array<variable>* serial;
@@ -32,7 +21,7 @@ public:
     }
     bool isFull()
     {
-        return tail==sizes?true:false;
+        return tail==sizes-1?true:false;
     }
     void enqueue(variable val)
     {
@@ -47,7 +36,7 @@ public:
     }
     variable top()
     {
-        variable var=*(serial->serial+tail);
+        variable var=*(serial->serial+head+1);
         return var;
     }
 };
@@ -57,7 +46,14 @@ public:
 int main()
 {
     Queue <string> people;
-    
+    cout<<"Is the Queue empty?: "<<people.isEmpty()<<endl;
+    people.enqueue("david");
+    people.enqueue("jason");
+    people.enqueue("ilya");
+    people.enqueue("jeff");
+    cout<<"Top element in the Queue: "<<people.top()<<endl;
+    cout<<"Is the Queue full?: "<<people.isFull()<<endl;
+
     cout<<"Editor--Samarth Parnami"<<endl;
 
 

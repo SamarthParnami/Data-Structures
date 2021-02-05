@@ -167,9 +167,13 @@ int main()
 {
     BinaryTree root(1);
     root.insertNodes("2,3,4,5,6,null,7,8,9");
+    cout<<"Inorder Traversal of the tree:";
     printVector(root.inorderTraversal(&root));
+    cout<<"Postorder Traversal of the tree:";
     printVector(root.postorderTraversal(&root));
+    cout<<"Preorder Traversal of the tree:";
     printVector(root.preorderTraversal(&root));
+    cout<<endl;
 
 
     cout<<"Editor--Samarth Parnami"<<endl;

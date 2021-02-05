@@ -180,64 +180,7 @@ int main()
 	int a[]={1,2,3,4,5,6,7,8,9};
 	Array<int> age(a,9);
 	string command;
-	cout<<"commannds are stored in command list"<<endl;
-	cin>>command;
-		cout<<command;
-		command=toLower(command);
-		if(command=="list"||command=="help")
-		{
-			cout<<"traverse -prints each element of the array."<<endl;
-			cout<<"push_back -to append array of element or one element at end of the array"<<endl;
-			cout<<"insertInMiddle -insert element at random index of the array"<<endl;
-			cout<<"deleteElement -delete a element of the array by value"<<endl;
-		}
-		else if(command=="traverse")
-		{
-			cout<<"Elements of the array:";
-			cout<<"\n";
-			age.traverse();
-		}
-		else if(command=="push_back")
-		{
-			int size=0;
-			cout<<"No of elements: ";
-			cin>>size;
-			int y[size];
-			cout<<"Enter element(s):";
-			int temp;
-			while(cin>>temp)
-			{
-				y[size++]=temp;
-			}
-			 age.push_back(y,size);
-		}
-		else if(command=="insertInMiddle")
-		{
-			int size=0;
-			cout<<"No of elements: ";
-			cin>>size;
-			int y[size];
-			cout<<"Enter element(s):";
-			int temp;
-			while(cin>>temp)
-			{
-				y[size++]=temp;
-			}
-			int index;
-			cout<<"At index:";
-			cin>>index;
-			age.insertMiddle(y,size,index);
-		}
-		else if(command=="delete")
-		{
-			int value;
-			cout<<"Delete value:";
-			cin>>value;
-			age.deletingElement(value);
-		}
-
 	
 	cout<<"--Editor-Samarth Parnami--"<<endl;
-	cin>>command;
 	return 0;
 }

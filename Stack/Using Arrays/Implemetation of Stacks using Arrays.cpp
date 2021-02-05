@@ -45,7 +45,7 @@ public:
         lastIndex--;
         return var;
     }
-    variable peep()
+    variable peek()
     {
         variable var=*(serial->serial+lastIndex);
         return var;
@@ -57,7 +57,13 @@ public:
 int main()
 {
     Stack <int> box;
-    
+    box.push(45);
+    cout<<box.peek()<<endl;
+    cout<<"Is stack empty?: "<<box.isEmpty()<<endl;
+    cout<<"Is stack full?: "<<box.isFull()<<endl;
+    box.pop();
+    cout<<"Is stack empty?: "<<box.isEmpty()<<endl;
+
 
     cout<<"Editor--Samarth Parnami"<<endl;
 

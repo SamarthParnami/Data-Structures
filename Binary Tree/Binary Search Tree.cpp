@@ -104,6 +104,70 @@ BinarySearchTree* right;
         }
 
     }
+    vector<int> preorderTraversal(BinarySearchTree* root)
+    {
+        vector<int> ans;
+        if(root!=nullptr)
+        {
+            ans.push_back(root->val);
+            if(root->left!=nullptr)
+            {
+                vector<int> l=preorderTraversal(root->left);
+                ans.insert(ans.end(),l.begin(),l.end());
+            }
+
+            if(root->right!=nullptr)
+            {
+                vector<int> r=preorderTraversal(root->right);
+                ans.insert(ans.end(),r.begin(),r.end());
+            }
+        }
+
+        return ans;
+    }
+    vector<int> inorderTraversal(BinarySearchTree* root)
+    {
+        vector<int> ans;
+        if(root!=nullptr)
+        {
+
+            if(root->left!=nullptr)
+            {
+                vector<int> l=inorderTraversal(root->left);
+                ans.insert(ans.end(),l.begin(),l.end());
+            }
+            ans.push_back(root->val);
+            if(root->right!=nullptr)
+            {
+                vector<int> r=inorderTraversal(root->right);
+                ans.insert(ans.end(),r.begin(),r.end());
+            }
+        }
+
+        return ans;
+    }
+    vector<int> postorderTraversal(BinarySearchTree* root)
+    {
+        vector<int> ans;
+        if(root!=nullptr)
+        {
+
+            if(root->left!=nullptr)
+            {
+                vector<int> l=postorderTraversal(root->left);
+                ans.insert(ans.end(),l.begin(),l.end());
+            }
+
+            if(root->right!=nullptr)
+            {
+                vector<int> r=postorderTraversal(root->right);
+                ans.insert(ans.end(),r.begin(),r.end());
+            }
+            ans.push_back(root->val);
+        }
+
+        return ans;
+    }
 };
 void printVector(vector<int> a)
 {
@@ -123,6 +187,12 @@ int main()
     root.insertion(4);
     root.insertion(145);
     root.insertion(-1);
+    cout<<"Inorder Traversal of the tree:";
+    printVector(root.inorderTraversal(&root));
+    cout<<"Postorder Traversal of the tree:";
+    printVector(root.postorderTraversal(&root));
+    cout<<"Preorder Traversal of the tree:";
+    printVector(root.preorderTraversal(&root));
 
 
 

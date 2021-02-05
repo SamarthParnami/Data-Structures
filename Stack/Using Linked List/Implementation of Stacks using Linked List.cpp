@@ -1,32 +1,25 @@
 #include <bits/stdc++.h>
 #include<Windows.h>
 #include"List.h"
-#include"../../Search/LinearSearch.hpp"
+
 using namespace std;
 
-string toLower(string &a)			//accessory function to allow easy implementation of console commands by converting uppercase to lowercase
-{
-	for(unsigned i=0;i<a.size();i++)
-	{
-		if(a[i]>=65&&a[i]<=90)
-		{
-			a[i]=a[i]+('A'-'a');
-		}
-	}
-	return a;
 
-}
 
 template<typename variable>
 class Stack{
+    int size;
+    int count;
     List<variable>* head;
 public:
-    Stack()
+    Stack(int size=20)
     {
+        count=0;
         head=nullptr;
     }
-    Stack(variable a)
+    Stack(variable a,int size=20)
     {
+        count=0;
         head=new List<variable>(a);
     }
     bool isEmpty()
@@ -35,10 +28,19 @@ public:
     }
     bool isFull()
     {
-        return false;
+        return count<size?false:true;
     }
     variable pop()
     {
+        variable val;
+        if(count==1)
+        {
+            val=head->val;
+            delete head;
+            head=nullptr;
+            count--;
+            return val;
+        }
         List<variable>* start=head;
         List<variable>* prev=nullptr;
         while(start->next!=nullptr)
@@ -46,12 +48,13 @@ public:
             prev=start;
             start=start->next;
         }
-        variable val=start->val;
+        val=start->val;
         prev->next=nullptr;
+        count--;
         delete start;
         return val;
     }
-    variable peep()
+    variable peek()
     {
         List<variable>* start=head;
         while(start->next!=nullptr)
@@ -64,18 +67,39 @@ public:
     }
     void push(variable val)
     {
-        head->pushBack(val);
+        if(head==nullptr)
+        {
+            head=new List<variable>(val);
+        }
+        else if(count==size)
+        {
+            cout<<"Stack overflow"<<endl;
+        }
+        else{
+            head->pushBack(val);
+            count++;
+        }
     }
 };
 
 
 int main()
 {
-    Stack<int> boxes;
+    Stack <int> box;
+
+    box.push(45);
+    cout<<"1"<<endl;
+    cout<<box.peek()<<endl;
+    box.push(25);
+    cout<<box.peek()<<endl;
+    cout<<"Is stack empty?: "<<box.isEmpty()<<endl;
+    cout<<"Is stack full?: "<<box.isFull()<<endl;
+    box.pop();
+    cout<<"Is stack empty?: "<<box.isEmpty()<<endl;
+
+
     cout<<"Editor--Samarth Parnami"<<endl;
-    Sleep(1000);
-    vector<int> v;
-    LinearSearch<int>(v,0);
+
 
     return 0;
 }

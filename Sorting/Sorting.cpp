@@ -65,7 +65,7 @@ void countSort(vector<int> &a,int upperLimit)
         count[a[i]]++;
     }
     a.clear();
-    for(int i=0,i<=upperLimit;i++)
+    for(int i=0;i<=upperLimit;i++)
     {
         for(int j=0;j<count[i];j++)
         {

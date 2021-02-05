@@ -4,11 +4,12 @@ using namespace std;
 template<typename variable>
 class circularQueue
 {
+   
 int size;
 variable *array;
 int rear,front;     //rear for addition of new elements, front for removal.
 int count=0;
-public:
+ public:
     circularQueue(int s=20):size(s)  //psuedo limit of INT_MIN-size
     {
         array=new variable[size];
@@ -54,12 +55,19 @@ public:
 };
 int main()
 {
-
-
-
-
-    cout<<"Editor--Samarth Parnami"<<endl;
-
-
+    circularQueue<int> people(5);
+    people.enqueue(1);
+    people.enqueue(2);
+    people.enqueue(3);
+    cout<<"Is Queue Empty?: "<<people.isEmpty()<<"\n";
+    cout<<"Is Queue Full?: "<<people.isFull()<<"\n";
+    people.enqueue(4);
+    people.enqueue(5);
+    cout<<"Is Queue Empty?: "<<people.isEmpty()<<"\n";
+    cout<<"Is Queue Full?: "<<people.isFull()<<"\n";
+    people.enqueue(people.dequeue());
+    cout<<"Is Queue Empty?: "<<people.isEmpty()<<"\n";
+    cout<<"Is Queue Full?: "<<people.isFull()<<"\n";
+    
     return 0;
 }

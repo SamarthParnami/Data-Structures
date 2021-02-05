@@ -21,15 +21,20 @@ string toLower(string &a)           //accessory function to allow easy implement
 template<typename variable>
 class Queue{
     List<variable>* head;
+    int size;
+    int count;
 public:
-    Queue()
+    Queue(int size=20)
     {
         head=nullptr;
+        this->size=size;
+        count=0;
     }
-    Queue(variable val)
+    Queue(int size,variable val)
     {
-
+        this->size=size;
         head=new List<variable>(val);
+        count=1;
     }
     bool isEmpty()
     {
@@ -37,12 +42,19 @@ public:
     }
     bool isFull()
     {
-
-        return false;
+        return count==size?true:false;
     }
     void enqueue(variable val)
     {
-        head.pushBack(val);
+        if(head==nullptr)
+        {
+            head=new List<variable>(val);
+        }
+        else
+        {
+            head->pushBack(val);
+        }
+        count++;
     }
     variable top()
     {
@@ -50,6 +62,7 @@ public:
     }
     variable dequeue()
     {
+        count--;
         variable val=head->val;
         head=head->popFront();
         return val;
@@ -58,8 +71,16 @@ public:
 int main()
 {
     Queue<string> people;
+    cout<<"Is the Queue empty?: "<<people.isEmpty()<<endl;
+    people.enqueue("david");
+    people.enqueue("jason");
+    people.enqueue("ilya");
+    people.enqueue("jeff");
+    cout<<"Top element in the Queue: "<<people.top()<<endl;
+    cout<<"Is the Queue full?: "<<people.isFull()<<endl;
+
     cout<<"Editor--Samarth Parnami"<<endl;
-    Sleep(1000);
+
 
     return 0;
 }
