@@ -1,4 +1,2 @@
 # Data-Structures
-My Academic Practical File
-Download code to make changes as you like.
-it contains barebones classes.
+Development of STL Data structures from scratch. Supports all data types. Built with generic nature in mind.
